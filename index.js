@@ -1,0 +1,50 @@
+const express = require('express');
+const app = express();
+const port= 3000;
+const bodyParser = require('body-parser');
+const { acceptsLanguages } = require('express/lib/request');
+const urlEncodedParser = bodyParser.urlencoded({extended: false})
+
+app.set('views', 'views');
+app.set('view engine', 'hbs');
+app.use(express.static('public'))
+
+
+app.get('/', function(request, response) {
+    response.render('bmi_cal');
+});
+
+app.post('/calculate-bmi', urlEncodedParser, function(request, response) {
+    height = parseFloat(request.body.height);
+    weight = parseFloat(request.body.weight);
+    rname = request.body.name;
+
+    bmi = weight / (height * height);
+    console.log("bmi " + 34)
+ 
+    //number to string format
+    bmi = bmi.toFixed();
+  
+    // CONDITION FOR BMI
+    if (bmi < 19) {
+        response.send("<h3>hey! " + rname +
+                 " your BMI is around: " + bmi +
+                 "<centre><h1>You are Underweight!");
+    } else if (19 <= bmi && bmi < 25) {
+        response.send("<h3>hey! " + rname +
+                 " your BMI is around: " + bmi +
+                 "<centre><h1>You are Normalweight!");
+    } else if (25 <= bmi && bmi < 30) {
+        response.send("<h3>hey! " + rname +
+                 " your BMI is around: " + bmi +
+                 "<centre><h1>You are Overweight!");
+    } else {
+        response.send("<h3>hey! " + rname +
+                 " your BMI is around: " + bmi +
+                 "<centre><h1>You are Obese!");
+    }
+});
+
+app.listen(port);
+console.log('server is listening on port ' + port)
+
