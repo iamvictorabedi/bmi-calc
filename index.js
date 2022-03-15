@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const port= 3000;
+const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+console.log(`server listening on port ${port}`);
 const { acceptsLanguages } = require('express/lib/request');
 const urlEncodedParser = bodyParser.urlencoded({extended: false})
 
