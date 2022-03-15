@@ -18,14 +18,12 @@ app.get('/', function(request, response) {
 app.post('/calculate-bmi', urlEncodedParser, function(request, response) {
     height = parseFloat(request.body.height);
     weight = parseFloat(request.body.weight);
-    rname = request.body.name;
+    rname = request.body.rname;
 
     bmi = weight / (height * height);
-    console.log("bmi " + 34)
- 
-    //number to string format
-    bmi = bmi.toFixed();
-  
+    console.log("bmi " + bmi)
+    console.log("name " + rname)
+
     // CONDITION FOR BMI
     if (bmi < 19) {
         response.send("<h3>hey! " + rname +
